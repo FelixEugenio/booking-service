@@ -13,7 +13,7 @@ public class ServiceDTO {
     private String name;
     private String description;
     private int price;
-    private String duration;
+    private int duration;
     private Long salonId;
     private Long category;
     private String image;

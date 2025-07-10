@@ -17,11 +17,8 @@ public interface BookingService {
     Booking getBookingById(Long id) throws Exception;
     List<Booking> getBookingBySalonId(Long salonId);
     List<Booking> getBookingByCustomerId(Long customerId);
-    List<Booking> getBookingByServiceId(Long serviceId);
     Booking updateBooking(Long bookingId, BookingStatus bookingStatus) throws Exception;
-    void deleteBooking(Long id);
-    List<Booking> getAllBookings();
-    List<Booking> getBokingByDate(LocalDate date, Long salonId);
+    List<Booking> getBookingByDate(LocalDate date, Long salonId);
     SalonReport getSalonReport(Long salonId);
 
 }

@@ -27,7 +27,7 @@ public class BookingServiceImplementation implements BookingService {
 
     @Override
     public Booking createBooking(BookingRequest booking, SalonDTO salon, UserDTO user, Set<ServiceDTO> serviceDTOset) throws Exception {
-        int totalDuration = serviceDTOset.stream().mapToInt(ServiceDTO-> Integer.parseInt(ServiceDTO.getDuration())).sum();
+        int totalDuration = serviceDTOset.stream().mapToInt(ServiceDTO::getDuration).sum();
         LocalDateTime bookingStartTime = booking.getStartTime();
         LocalDateTime bookingEndTime = bookingStartTime.plusMinutes(totalDuration);
 
@@ -59,8 +59,13 @@ public class BookingServiceImplementation implements BookingService {
 
 
 
-        if(startTime.isBefore(salonOpenTime) || endTime.isAfter(salonCloseTime)){
+        /*if(startTime.isBefore(salonOpenTime) || endTime.isAfter(salonCloseTime)){
             throw  new Exception("Booking time must be within salons working hours");
+        }
+*/
+
+        if (salon.getOpenTime() == null || salon.getCloseTime() == null) {
+            throw new Exception("Salon working hours are not properly configured.");
         }
 
         for(Booking existingBooking : existingBookings){
@@ -98,10 +103,7 @@ public class BookingServiceImplementation implements BookingService {
         return bookingRepository.findByCustomerId(customerId);
     }
 
-    @Override
-    public List<Booking> getBookingByServiceId(Long serviceId) {
-        return List.of();
-    }
+
 
     @Override
     public Booking updateBooking(Long bookingId  ,BookingStatus bookingStatus) throws Exception {
@@ -112,17 +114,7 @@ public class BookingServiceImplementation implements BookingService {
     }
 
     @Override
-    public void deleteBooking(Long id) {
-
-    }
-
-    @Override
-    public List<Booking> getAllBookings() {
-        return List.of();
-    }
-
-    @Override
-    public List<Booking> getBokingByDate(LocalDate date, Long salonId) {
+    public List<Booking> getBookingByDate(LocalDate date, Long salonId) {
         List<Booking> allBookings = bookingRepository.findBySalonId(salonId);
         if(date == null){
             return allBookings;
