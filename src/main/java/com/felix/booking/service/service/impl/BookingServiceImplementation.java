@@ -31,6 +31,15 @@ public class BookingServiceImplementation implements BookingService {
         return null;
     }
 
+    public boolean isTimeSloatAvailable(SalonDTO salon, LocalDateTime startTime, LocalDateTime endTime){
+
+        SalonDTO salons = new SalonDTO();
+        LocalDateTime salonOpenTime = salons.getOpenTime().atDate(startTime.toLocalDate());
+        LocalDateTime salonCloseTime = salons.getCloseTime().atDate(startTime.toLocalDate());
+
+        return false;
+    }
+
     @Override
     public Booking getBookingById(Long id) {
         return null;
