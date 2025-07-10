@@ -1,5 +1,6 @@
 package com.felix.booking.service.service;
 
+import com.felix.booking.service.domain.BookingStatus;
 import com.felix.booking.service.dto.BookingRequest;
 import com.felix.booking.service.dto.SalonDTO;
 import com.felix.booking.service.dto.ServiceDTO;
@@ -12,12 +13,12 @@ import java.util.List;
 import java.util.Set;
 
 public interface BookingService {
-    Booking createBooking(BookingRequest booking, SalonDTO salon , UserDTO user, Set<ServiceDTO> serviceDTOset);
-    Booking getBookingById(Long id);
+    Booking createBooking(BookingRequest booking, SalonDTO salon , UserDTO user, Set<ServiceDTO> serviceDTOset) throws Exception;
+    Booking getBookingById(Long id) throws Exception;
     List<Booking> getBookingBySalonId(Long salonId);
     List<Booking> getBookingByCustomerId(Long customerId);
     List<Booking> getBookingByServiceId(Long serviceId);
-    Booking updateBooking(Booking booking);
+    Booking updateBooking(Long bookingId, BookingStatus bookingStatus) throws Exception;
     void deleteBooking(Long id);
     List<Booking> getAllBookings();
     List<Booking> getBokingByDate(LocalDate date, Long salonId);

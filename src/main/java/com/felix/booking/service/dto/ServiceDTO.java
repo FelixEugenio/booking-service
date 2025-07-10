@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 public class ServiceDTO {
 
+    private Long id;
     private String name;
     private String description;
     private int price;
